@@ -1,0 +1,16 @@
+{
+  "name": "CollabPlaylist",
+  "version": "0.0.1",
+  "description": "Share a playlist with friends",
+  "author": "Ryu Yu",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3",
+    "glob": "^5.0.15"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-typescript": "^2.9.0",
+    "tsd": "^0.6.4"
+  }
+}
