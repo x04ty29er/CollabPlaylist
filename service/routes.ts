@@ -6,11 +6,11 @@ import Playlist from './playlist';
 var app: express.Express = express();
 var newPlaylist: Playlist = new Playlist();
 
-app.use ((req, res, next) => {
-    var data='';
+app.use((req, res, next) => {
+    var data = '';
     req.setEncoding('utf8');
-    req.on('data', (chunk) => { 
-       data += chunk;
+    req.on('data', (chunk) => {
+        data += chunk;
     });
 
     req.on('end', () => {
@@ -28,13 +28,21 @@ app.get("/playlist", (req, res) => {
 });
 
 app.post("/addsong", (req, res) => {
-    var prevNumber = newPlaylist.all.length;
     newPlaylist.addSong(req.body);
-    if (!(prevNumber < newPlaylist.all.length)) {
-        res.send(500, "song add failed");
+    res.send(JSON.stringify(newPlaylist.all));
+});
+
+app.post("/removesong", (req, res) => {
+    var toRemove: string = req.body;
+    var removed;
+    var removeIndex = parseInt(toRemove);
+    if (removeIndex) {
+        removed = newPlaylist.removeSong(removeIndex);
     } else {
-        res.send(JSON.stringify(newPlaylist.all));
+        removed = newPlaylist.removeSong();
     }
+    
+    res.send(JSON.stringify(removed));
 });
 
 app.get("/currentsong", (req, res) => {
@@ -46,8 +54,8 @@ app.get("/nextsong", (req, res) => {
 });
 
 var server = app.listen(3000, "localhost", () => {
-  var host = server.address().address;
-  var port = server.address().port;
+    var host = server.address().address;
+    var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+    console.log('CollabPlaylist service listening at http://%s:%s', host, port);
 });
