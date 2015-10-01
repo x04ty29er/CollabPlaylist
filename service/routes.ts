@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-    res.send("hello World");
+    res.send("Hello World");
 });
 
 app.get("/playlist", (req, res) => {
