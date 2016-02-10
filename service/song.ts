@@ -3,7 +3,7 @@ export default class Song {
     private elapsedTime: number;
     private playing: boolean;
 
-    private _timerInterval: number;
+    private _timerInterval: any;
 
     constructor(url: string) {
         this._url = url;
