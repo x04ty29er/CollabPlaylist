@@ -11,12 +11,12 @@ export default class Song {
         this.elapsedTime = 0;
         this._timerInterval = null;
     }
-    
+
     public get url(): string {
         if (this.elapsedTime > 0) {
             return this._getInProgressUrl();
         }
-        
+
         return this._url;
     }
 
@@ -35,11 +35,11 @@ export default class Song {
         if (!this.playing) {
             return false;
         }
-        
+
         this._stopTimer();
         this.elapsedTime = 0;
         this.playing = false;
-        
+
         return true;
     }
 
@@ -64,7 +64,7 @@ export default class Song {
             return false;
         }
     }
-    
+
     private _getInProgressUrl(): string {
         return this._url + "&" + "start=" + this.elapsedTime;
     }

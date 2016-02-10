@@ -1,5 +1,8 @@
+/// <reference path="../typings/tsd.d.ts" />
+import Song from './song.ts';
+
 export default class Playlist {
-    private urlList: { [url: string] : boolean };
+    private urlList: { [url: string]: Song };
     private positionMap: string[];
     private listSize: number; // Kept in sync with urlList size
     private position: number;
@@ -15,18 +18,18 @@ export default class Playlist {
         return this.positionMap;
     }
 
-    public get current(): string {
-        return this.positionMap[this.position];
+    public get current(): Song {
+        return this.urlList[this.positionMap[this.position]];
     }
 
-    public get next(): string {
+    public get next(): Song {
         this.position = (this.position + 1) % this.listSize;
-        return this.positionMap[this.position];
+        return this.urlList[this.positionMap[this.position]];
     }
 
-    public get previous(): string {
+    public get previous(): Song {
         this.position = (this.position - 1) % this.listSize;
-        return this.positionMap[this.position];
+        return this.urlList[this.positionMap[this.position]];
     }
     
     // Returns new size of list
@@ -36,7 +39,7 @@ export default class Playlist {
         }
 
         this.listSize++;
-        this.urlList[url] = true;
+        this.urlList[url] = new Song(url);
         this.positionMap.push(url);
         return this.listSize;
     }
@@ -49,7 +52,7 @@ export default class Playlist {
             delete this.urlList[urlToRemove];
             return this.positionMap.splice(index, 1);
         }
-        
+
         return [];
     }
 }

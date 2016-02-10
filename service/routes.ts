@@ -41,7 +41,7 @@ app.post("/removesong", (req, res) => {
     } else {
         removed = newPlaylist.removeSong();
     }
-    
+
     res.send(JSON.stringify(removed));
 });
 
